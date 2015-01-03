@@ -8,43 +8,66 @@
 <body ng-app="formapify" ng-controller="APIController">
 		<h1>FormAPIfy Demo</h1>
     
-		<form nonvalidate>
+    <form nonvalidate>
 			<h3>Add Operation instance 1</h3>
-			<input type="text" ng-model="a" placeholder="a"></input>
+			<input type="text" ng-model="i[0].a" placeholder="a"></input>
 			<br>
-			<input type="text" ng-model="b" placeholder="b"></input>
+			<input type="text" ng-model="i[0].b" placeholder="b"></input>
 			<br>
-			<button ng-click="add()">Add</button>
+			<button ng-click="add(0)">Add</button>
 			<br>
-			<input type="text" ng-model="c" placeholder="c"></input>
+			<input type="text" ng-model="i[0].c" placeholder="c"></input>
 		</form>
+
 		<form nonvalidate>
 			<h3>Add Operation instance 2</h3>
-			<input type="text" ng-model="a" placeholder="a"></input>
+			<input type="text" ng-model="i[1].a" placeholder="a"></input>
 			<br>
-			<input type="text" ng-model="b" placeholder="b"></input>
+			<input type="text" ng-model="i[1].b" placeholder="b"></input>
 			<br>
-			<button ng-click="add()">Add</button>
+			<button ng-click="add(1)">Add</button>
 			<br>
-			<input type="text" ng-model="c" placeholder="c"></input>
+			<input type="text" ng-model="i[1].c" placeholder="c"></input>
 		</form>
+		
 		<script>
     angular.module('formapify', [])
         .controller("APIController", function($scope) {
-            $scope.a = '';
-            $scope.b = '';
-            $scope.c = '';
+           	$scope.i = [{a:'', b:'', c:''},{a:'', b:'', c:''}];
 
-            $scope.reset = function(){
-							$scope.a = '';
-           		$scope.b = '';
-            	$scope.c = '';
+            $scope.reset = function(ii){
+							$scope.i[ii] = {a:'', b:'', c:''};
             };
 
+            /*
             $scope.add = function() {
             	console.log('inside add');
             	$scope.c = parseInt($scope.a) + parseInt($scope.b);
             };
+						*/
+            //for overloaded function
+            //input : i instance number
+						$scope.add = function(ii) {
+            	console.log('inside add for instance :' + ii);
+            	var a = parseInt($scope.i[ii].a);
+            	var b = parseInt($scope.i[ii].b);
+
+            	console.log("a:" + a + "b:" + b);
+            	
+            	var c = addOp(a,b);
+
+            	$scope.i[ii].c = c;
+            	
+            	console.log("c:" + c);
+            };
+
+            // Add given two inputs
+            // Input: a, b two numbers/string
+            // Ouput: (a+b) applies for both number, string
+
+            function addOp(a,b){
+            	return a+b;
+            }
         });
     </script>
 </body>
