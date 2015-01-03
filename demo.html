@@ -48,21 +48,59 @@
 
             console.log("a:" + a + "b:" + b);
 
-            var c ;
-            if($scope.i[ii].opName =='addOp'){
-            	c = addOp(a, b);
-          	}
-            $scope.i[ii].c = c;
+            var opMeta = addOpMeta;
+            // Get all input values
+            var argName;
+            var argValue;
+            var ipValues = [];
+            for(var i in opMeta.ip){
+            	argName = opMeta.ip[i];
+            	argValue = $scope.i[ii][argName];
+            	console.log('argName:' + argName + ';argValue:' + argValue);
 
-            console.log("c:" + c);
+            	ipValues.push(argValue);
+            }
+
+            console.log('input values: ' + ipValues);
+
+            // Evaluate /perform operation as per op meta.
+            var c ;
+            var evalStr = opMeta.opName + '(ipvalues)';
+            var oldevalStr = evalStr;
+            console.log("oldevalstr:" + oldevalStr);
+            // TESTing only
+            //evalStr = 'addOp(ipValues)';
+            //console.log()
+          	//c = eval('addOp(ipValues');
+          	console.log('evalStr:' + evalStr);
+          	c = eval(evalStr);
+
+          	// Save result
+            //$scope.i[ii].c = c;
+            argName = opMeta.op[0];
+            argValue = c;
+            $scope.i[ii][argName] = argValue;
+
+            console.log('output arg name: ' + argName + ',argValue:"'+ argValue );
         };
 
         // Add given two inputs
         // Input: a, b two numbers/string
         // Ouput: (a+b) applies for both number, string
 
+        /*
         function addOp(a, b) {
             return a + b;
+        }*/
+
+        function addOp(values){
+        	var sum = 0;
+        	var value ;
+        	for(var i in values){
+        		value = values[i];
+        		sum += parseInt(value);
+        	}
+        	return sum;
         }
       });
 
@@ -102,13 +140,38 @@
 		    return tpl;
 			}
 
+			//generate input, output args empty hash for operator
+			function generateArgHash(opMeta){
+				var argHash = {};
+				var argName = '';
+
+				//Inputs argumetns
+				for(var i in opMeta.ip){
+					argName = opMeta.ip[i];
+					argHash[argName] = '';
+				}
+
+				//Output arguments
+				for(var i in opMeta.op){
+					argName = opMeta.op[i];
+					argHash[argName] = '';
+				}
+
+				console.log("argHash:" + argHash);
+
+				return argHash;
+			}
+
 			formapify.directive("addforms", function($compile){
 				return function(scope, element, attrs){
 					element.bind("click", function(){
 						scope.count++;
 						var ii = scope.i.length;
 						//add one more i
-						scope.i.push({a:'', b:'', c:''});
+						//scope.i.push({a:'', b:'', c:''});
+						var argHash = generateArgHash(addOpMeta);
+
+						scope.i.push(argHash);
 						console.log(scope.i);
 
 						angular.element(document.getElementById('space-for-buttons'))
