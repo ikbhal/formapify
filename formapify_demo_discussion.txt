@@ -24,11 +24,16 @@ does angular js can create dynamically any div
 ->*create form from jquery dynamically from metadata
   ->choose angular js over jquery
 
-->angular simple directive
- but not able change dynamicform, addForm tag
-***************
-->but without meta, using agular js directive create add form
-->dynamic add form using angular js
+->*angular simple directive
+ but not able change dynamicform, addForm tag, use only lowercase , no capital in between in the tagname
+->*but without meta, using agular js directive create add form
+	-> use angular js template for easy adding or copy  make it online , breakable "+"
+		->but ng-model values are not updating , it will take some action to visible
+		  ->but as of no functionality progblem only with initialization, 
+->* remove old two form
+->*dynamic add form using angular js
+
 ->dynamic add from using add meta data using angular js
+***************
 ->make it form look
 ->mkake it dragable

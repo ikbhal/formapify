@@ -13,100 +13,97 @@
     <addformbutton></addformbutton>
     <div id="formContainer">
     		<div id="space-for-buttons"></div>
-        <form nonvalidate>
-            <h3>Add Operation instance 1</h3>
-            <input type="text" ng-model="i[0].a" placeholder="a"></input>
-            <br>
-            <input type="text" ng-model="i[0].b" placeholder="b"></input>
-            <br>
-            <button ng-click="add(0)">Add</button>
-            <br>
-            <input type="text" ng-model="i[0].c" placeholder="c"></input>
-        </form>
+       
+    </div>  
 
-        <form nonvalidate>
-            <h3>Add Operation instance 2</h3>
-            <input type="text" ng-model="i[1].a" placeholder="a"></input>
-            <br>
-            <input type="text" ng-model="i[1].b" placeholder="b"></input>
-            <br>
-            <button ng-click="add(1)">Add</button>
-            <br>
-            <input type="text" ng-model="i[1].c" placeholder="c"></input>
-        </form>
+    <script>
+      var addOpMeta = {
+          name: 'Add',
+          ip: [
+              'a', 'b'
+          ],
+          op: ['c']
+      };
 
-        <div>
+      var formapify = angular.module('formapify', []);
+      formapify.controller("APIController", function($scope) {
+      	$scope.count = 0;
+        $scope.i = [];
 
-        <script>
-            var addOpMeta = {
-                name: 'Add',
-                ip: [
-                    'a', 'b'
-                ],
-                op: ['c']
+        $scope.reset = function(ii) {
+            $scope.i[ii] = {
+                a: '',
+                b: '',
+                c: ''
             };
+        };
+       //for overloaded function
+        //input : i instance number
+        $scope.add = function(ii) {
+            console.log('inside add for instance :' + ii);
+            var a = parseInt($scope.i[ii].a);
+            var b = parseInt($scope.i[ii].b);
 
-            var formapify = angular.module('formapify', []);
-            formapify.controller("APIController", function($scope) {
-            	$scope.count = 0;
-              $scope.i = [{
-                  a: '',
-                  b: '',
-                  c: ''
-              }, {
-                  a: '',
-                  b: '',
-                  c: ''
-              }];
+            console.log("a:" + a + "b:" + b);
 
-              $scope.reset = function(ii) {
-                  $scope.i[ii] = {
-                      a: '',
-                      b: '',
-                      c: ''
-                  };
-              };
-             //for overloaded function
-              //input : i instance number
-              $scope.add = function(ii) {
-                  console.log('inside add for instance :' + ii);
-                  var a = parseInt($scope.i[ii].a);
-                  var b = parseInt($scope.i[ii].b);
+            var c = addOp(a, b);
 
-                  console.log("a:" + a + "b:" + b);
+            $scope.i[ii].c = c;
 
-                  var c = addOp(a, b);
+            console.log("c:" + c);
+        };
 
-                  $scope.i[ii].c = c;
+        // Add given two inputs
+        // Input: a, b two numbers/string
+        // Ouput: (a+b) applies for both number, string
 
-                  console.log("c:" + c);
-              };
+        function addOp(a, b) {
+            return a + b;
+        }
+      });
 
-              // Add given two inputs
-              // Input: a, b two numbers/string
-              // Ouput: (a+b) applies for both number, string
 
-              function addOp(a, b) {
-                  return a + b;
-              }
-          });
+			formapify.directive("addformbutton", function(){
+				return {
+					restrict: "E",
+					template: "<button addforms>Click to add form</button>"
+				}
+			});
 
-					formapify.directive("addformbutton", function(){
-						return {
-							restrict: "E",
-							template: "<button addforms>Click to add form</button>"
-						}
+
+			//dynamic helping function which will generate  form dyanamically
+			// Input: ii form instance index
+			function formTemplateGenerator(ii){
+				var iihuman = ii+1;
+				console.log("ii: " + ii + ";iihuman: " + iihuman);
+			
+				var tpl = '<form nonvalidate>'
+								+'  <h3>Add Operation instance '+ (iihuman)+'</h3>'
+								+'  <input type="text" ng-model="i['+ ii +'].a" placeholder="a"></input>'
+								+'  <br>'
+								+'  <input type="text" ng-model="i['+ ii +'].b" placeholder="b"></input>'
+								+'  <br>'
+								+'  <button ng-click="add('+ ii +')">Add</button>'
+								+'  <br>'
+								+'  <input type="text" ng-model="i['+ ii +'].c" placeholder="c"></input>'
+								+'</form>';
+				return tpl;
+			}
+
+			formapify.directive("addforms", function($compile){
+				return function(scope, element, attrs){
+					element.bind("click", function(){
+						scope.count++;
+						var ii = scope.i.length;
+						//add one more i
+						scope.i.push({a:'', b:'', c:''});
+						console.log(scope.i);
+
+						angular.element(document.getElementById('space-for-buttons'))
+							.append($compile(formTemplateGenerator(ii) )(scope));
 					});
-
-
-					formapify.directive("addforms", function($compile){
-						return function(scope, element, attrs){
-							element.bind("click", function(){
-								scope.count++;
-								angular.element(document.getElementById('space-for-buttons')).append($compile("<div><button class='btn btn-default' data-alert="+scope.count+">Show Form #"+scope.count+"</button></div>")(scope));
-							});
-						};
-					});
+				};
+			});
 
      	</script>
 </body>
