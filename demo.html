@@ -4,72 +4,111 @@
     <title>API</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
     </script>
+   
 </head>
+
 <body ng-app="formapify" ng-controller="APIController">
-		<h1>FormAPIfy Demo</h1>
-    
-    <form nonvalidate>
-			<h3>Add Operation instance 1</h3>
-			<input type="text" ng-model="i[0].a" placeholder="a"></input>
-			<br>
-			<input type="text" ng-model="i[0].b" placeholder="b"></input>
-			<br>
-			<button ng-click="add(0)">Add</button>
-			<br>
-			<input type="text" ng-model="i[0].c" placeholder="c"></input>
-		</form>
+    <h1>FormAPIfy Demo</h1>
 
-		<form nonvalidate>
-			<h3>Add Operation instance 2</h3>
-			<input type="text" ng-model="i[1].a" placeholder="a"></input>
-			<br>
-			<input type="text" ng-model="i[1].b" placeholder="b"></input>
-			<br>
-			<button ng-click="add(1)">Add</button>
-			<br>
-			<input type="text" ng-model="i[1].c" placeholder="c"></input>
-		</form>
-		
-		<script>
-    angular.module('formapify', [])
-        .controller("APIController", function($scope) {
-           	$scope.i = [{a:'', b:'', c:''},{a:'', b:'', c:''}];
+    <addformbutton></addformbutton>
+    <div id="formContainer">
+    		<div id="space-for-buttons"></div>
+        <form nonvalidate>
+            <h3>Add Operation instance 1</h3>
+            <input type="text" ng-model="i[0].a" placeholder="a"></input>
+            <br>
+            <input type="text" ng-model="i[0].b" placeholder="b"></input>
+            <br>
+            <button ng-click="add(0)">Add</button>
+            <br>
+            <input type="text" ng-model="i[0].c" placeholder="c"></input>
+        </form>
 
-            $scope.reset = function(ii){
-							$scope.i[ii] = {a:'', b:'', c:''};
+        <form nonvalidate>
+            <h3>Add Operation instance 2</h3>
+            <input type="text" ng-model="i[1].a" placeholder="a"></input>
+            <br>
+            <input type="text" ng-model="i[1].b" placeholder="b"></input>
+            <br>
+            <button ng-click="add(1)">Add</button>
+            <br>
+            <input type="text" ng-model="i[1].c" placeholder="c"></input>
+        </form>
+
+        <div>
+
+        <script>
+            var addOpMeta = {
+                name: 'Add',
+                ip: [
+                    'a', 'b'
+                ],
+                op: ['c']
             };
 
-            /*
-            $scope.add = function() {
-            	console.log('inside add');
-            	$scope.c = parseInt($scope.a) + parseInt($scope.b);
-            };
-						*/
-            //for overloaded function
-            //input : i instance number
-						$scope.add = function(ii) {
-            	console.log('inside add for instance :' + ii);
-            	var a = parseInt($scope.i[ii].a);
-            	var b = parseInt($scope.i[ii].b);
+            var formapify = angular.module('formapify', []);
+            formapify.controller("APIController", function($scope) {
+            	$scope.count = 0;
+              $scope.i = [{
+                  a: '',
+                  b: '',
+                  c: ''
+              }, {
+                  a: '',
+                  b: '',
+                  c: ''
+              }];
 
-            	console.log("a:" + a + "b:" + b);
-            	
-            	var c = addOp(a,b);
+              $scope.reset = function(ii) {
+                  $scope.i[ii] = {
+                      a: '',
+                      b: '',
+                      c: ''
+                  };
+              };
+             //for overloaded function
+              //input : i instance number
+              $scope.add = function(ii) {
+                  console.log('inside add for instance :' + ii);
+                  var a = parseInt($scope.i[ii].a);
+                  var b = parseInt($scope.i[ii].b);
 
-            	$scope.i[ii].c = c;
-            	
-            	console.log("c:" + c);
-            };
+                  console.log("a:" + a + "b:" + b);
 
-            // Add given two inputs
-            // Input: a, b two numbers/string
-            // Ouput: (a+b) applies for both number, string
+                  var c = addOp(a, b);
 
-            function addOp(a,b){
-            	return a+b;
-            }
-        });
-    </script>
+                  $scope.i[ii].c = c;
+
+                  console.log("c:" + c);
+              };
+
+              // Add given two inputs
+              // Input: a, b two numbers/string
+              // Ouput: (a+b) applies for both number, string
+
+              function addOp(a, b) {
+                  return a + b;
+              }
+          });
+
+					formapify.directive("addformbutton", function(){
+						return {
+							restrict: "E",
+							template: "<button addforms>Click to add form</button>"
+						}
+					});
+
+
+					formapify.directive("addforms", function($compile){
+						return function(scope, element, attrs){
+							element.bind("click", function(){
+								scope.count++;
+								angular.element(document.getElementById('space-for-buttons')).append($compile("<div><button class='btn btn-default' data-alert="+scope.count+">Show Form #"+scope.count+"</button></div>")(scope));
+							});
+						};
+					});
+
+     	</script>
 </body>
 
 </html>

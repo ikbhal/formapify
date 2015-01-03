@@ -1,5 +1,4 @@
-github formapify
-add origin
+github formapify ->done
 ------
 jquery ui
 make it dragable
@@ -8,6 +7,28 @@ look like rounded corner form, close button, minmize
 ->create simple add form with hard code
 ->how to create two same add form
   ->duplicate existing add form on button click
-  or create form your self or cut and paste
-    ->different ng-model variables
-    -> same function but with different arguments, output
+  or *create form your self or cut and paste
+    ->*different ng-model variables
+    	->use array
+    -> *same function but with different arguments, output
+->*create form metadata
+->*create form container
+
+
+
+do i need to use jquery or angular js to create form
+if create form with jquery will not able to work with angular js
+does angular js can create dynamically any div
+
+*so we are going with angular js now
+->*create form from jquery dynamically from metadata
+  ->choose angular js over jquery
+
+->angular simple directive
+ but not able change dynamicform, addForm tag
+***************
+->but without meta, using agular js directive create add form
+->dynamic add form using angular js
+->dynamic add from using add meta data using angular js
+->make it form look
+->mkake it dragable
