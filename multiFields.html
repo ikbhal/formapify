@@ -1,0 +1,61 @@
+<head>
+    <title>API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    </script>
+
+</head>
+
+<body ng-app="multiFieldApp" ng-controller="multiFieldController">
+    <h1>Multi Field Demo</h1>
+    Note:<br>
+    <textarea ng-model='problem' rows=5 cols = 40></textarea><br>
+    1.<input type='text' ng-model='a' placeholder='a'></input><br>
+    2.<input type='text' ng-model='b' placeholder='b'></input><br>
+    <button ng-click='addAB()'>a+b</button><br>
+    3.<input type='text' ng-model='c' placeholder='c'></input><br>
+    4.<input type='text' ng-model='d' placeholder='d'></input><br>
+    <button ng-click='addCD()'>c+d</button><br>
+    5.<input type='text' ng-model='e' placeholder='e'></input><br>
+    6.<input type='text' ng-model='f' placeholder='f'></input><br>
+    7.<input type='text' ng-model='g' placeholder='g'></input><br>
+
+    <script>
+	    var multiFieldApp = angular.module('multiFieldApp', []);
+	    multiFieldApp.controller("multiFieldController", function($scope) {
+
+	    	$scope.a = '';
+	    	$scope.b = '';
+	    	$scope.c = '';
+	    	$scope.d = '';
+	    	$scope.e = '';
+	    	$scope.f = '';
+	    	$scope.g = '';
+
+	    	//test case
+	    	$scope.problem= '((a+b)+d)->e\n'
+					+'val -> (10+20)+40 -> 70\n'
+					+ 'pos->((1+2):3 +4):5';
+				
+
+				$scope.a = 10;
+				$scope.b = 20;
+				
+				$scope.c = -1;
+
+				$scope.d = 40;
+
+				$scope.e = -1;		
+
+				$scope.addAB = function(){
+					$scope.c = $scope.a + $scope.b;
+				}	;	
+
+				$scope.addCD = function(){
+					$scope.e = $scope.c + $scope.d;
+				}	;	
+
+	    });
+    </script>
+</body>
+
+</html>

@@ -43,12 +43,20 @@ does angular js can create dynamically any div
 	->*even generate input, output arg name in operation instances 
 	-> push intance to instances dynamically 
 
-->drag and drop angular js
-***************
-->drag and drop javascript
+->*install bower
+->*install ngDraggable
+->*drag and drop angular js
+->*mkake it dragable
+->*make droppable
+->*drag and drop javascript
+-> simple multiple text fields with ng-model shared across
+**********
+->how to change ng-model
+->angular js dom manipulation
+
+->how to know the dropped div in ng-drop-success function
+
 ->drag and drop jquery
-->mkake it dragable
-->make droppable
 ->clone items
 ->reorder items
 ->angular ui basics 
