@@ -34,6 +34,9 @@ does angular js can create dynamically any div
 ->*dynamic add form using angular js
 
 ->dynamic add from using add meta data using angular js
+	->generate function
+		->jsfidle for crome
+	->call functionals dynamically in angular js
 ***************
 ->make it form look
 ->mkake it dragable

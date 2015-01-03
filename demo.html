@@ -19,6 +19,8 @@
     <script>
       var addOpMeta = {
           name: 'Add',
+          formHandler: 'add',
+          opName: 'addOp',
           ip: [
               'a', 'b'
           ],
@@ -46,8 +48,10 @@
 
             console.log("a:" + a + "b:" + b);
 
-            var c = addOp(a, b);
-
+            var c ;
+            if($scope.i[ii].opName =='addOp'){
+            	c = addOp(a, b);
+          	}
             $scope.i[ii].c = c;
 
             console.log("c:" + c);
@@ -73,21 +77,29 @@
 
 			//dynamic helping function which will generate  form dyanamically
 			// Input: ii form instance index
-			function formTemplateGenerator(ii){
-				var iihuman = ii+1;
-				console.log("ii: " + ii + ";iihuman: " + iihuman);
-			
-				var tpl = '<form nonvalidate>'
-								+'  <h3>Add Operation instance '+ (iihuman)+'</h3>'
-								+'  <input type="text" ng-model="i['+ ii +'].a" placeholder="a"></input>'
-								+'  <br>'
-								+'  <input type="text" ng-model="i['+ ii +'].b" placeholder="b"></input>'
-								+'  <br>'
-								+'  <button ng-click="add('+ ii +')">Add</button>'
-								+'  <br>'
-								+'  <input type="text" ng-model="i['+ ii +'].c" placeholder="c"></input>'
-								+'</form>';
-				return tpl;
+			function generateFormTemplate(opMeta, ii) {
+		    var iihuman = ii +1;
+		    var tpl = '<form nonvalidate>' + '  <h3>' + opMeta.name + ' Operation instance ' + (iihuman) + '</h3>';
+		    //Inputs
+		    var inputs = opMeta.ip;
+		    var arg;
+		    for (var argi in inputs) {
+		    		arg = inputs[argi];
+		        tpl += '  <input type="text" ng-model="i[' + ii + '].' + arg + '" placeholder="' + arg + '"></input><br>'
+		    }
+		    // operation button
+		    tpl += '<button ng-click="' + opMeta.formHandler + '(' + ii + ')">' 
+		    	+ opMeta.name +'</button><br>';
+
+		    //Outputs
+		    var outputs = opMeta.op;
+		    for (var argi in outputs) {
+		    		arg = outputs[argi];
+		        tpl += '  <input type="text" ng-model="i[' + ii + '].' + arg + '" placeholder="' + arg + '"></input><br>'
+		    }
+
+		    console.log("tpl:" + tpl);
+		    return tpl;
 			}
 
 			formapify.directive("addforms", function($compile){
@@ -100,7 +112,7 @@
 						console.log(scope.i);
 
 						angular.element(document.getElementById('space-for-buttons'))
-							.append($compile(formTemplateGenerator(ii) )(scope));
+							.append($compile(generateFormTemplate(addOpMeta, ii) )(scope));
 					});
 				};
 			});
