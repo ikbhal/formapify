@@ -1,0 +1,41 @@
+Api can be any operation which will take inputs(zero or more, perform processing over it, give output(zero or more).
+
+api fields
+	name
+	description
+	validation
+	inputs
+		no of arguments
+		argument
+			name
+			type
+			description
+			validation
+			default value
+			order optional
+	
+	outputs
+		no of outputs
+		output argument
+			name
+			type
+			description
+			validation
+			default value if not received
+			order optional
+			validation
+
+	cross effects
+		saving
+		printing
+		caling some others
+
+	errors
+		input validation
+		process error
+		sped delay
+		network error
+
+	sla
+		how much time it will take process
+		how much load it will take

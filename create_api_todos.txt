@@ -1,0 +1,10 @@
+Todos
+
+1)angular js
+2*)create api form
+3)hanlde create api form
+4)Save locally api 
+5)save remotely api later
+6)search api
+7)get api
+8)create form templates

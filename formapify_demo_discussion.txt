@@ -1,0 +1,13 @@
+github formapify
+add origin
+------
+jquery ui
+make it dragable
+look like rounded corner form, close button, minmize
+---------
+->create simple add form with hard code
+->how to create two same add form
+  ->duplicate existing add form on button click
+  or create form your self or cut and paste
+    ->different ng-model variables
+    -> same function but with different arguments, output

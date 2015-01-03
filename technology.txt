@@ -1,0 +1,9 @@
+angular js
+jquery mobile/bootstrap
+node js
+html5
+websocket
+push
+mongodb
+redis
+css

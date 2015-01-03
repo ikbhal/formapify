@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    </script>
+</head>
+<body ng-app="formapify" ng-controller="APIController">
+		<h1>FormAPIfy Demo</h1>
+    
+		<form nonvalidate>
+			<h3>Add Operation instance 1</h3>
+			<input type="text" ng-model="a" placeholder="a"></input>
+			<br>
+			<input type="text" ng-model="b" placeholder="b"></input>
+			<br>
+			<button ng-click="add()">Add</button>
+			<br>
+			<input type="text" ng-model="c" placeholder="c"></input>
+		</form>
+		<form nonvalidate>
+			<h3>Add Operation instance 2</h3>
+			<input type="text" ng-model="a" placeholder="a"></input>
+			<br>
+			<input type="text" ng-model="b" placeholder="b"></input>
+			<br>
+			<button ng-click="add()">Add</button>
+			<br>
+			<input type="text" ng-model="c" placeholder="c"></input>
+		</form>
+		<script>
+    angular.module('formapify', [])
+        .controller("APIController", function($scope) {
+            $scope.a = '';
+            $scope.b = '';
+            $scope.c = '';
+
+            $scope.reset = function(){
+							$scope.a = '';
+           		$scope.b = '';
+            	$scope.c = '';
+            };
+
+            $scope.add = function() {
+            	console.log('inside add');
+            	$scope.c = parseInt($scope.a) + parseInt($scope.b);
+            };
+        });
+    </script>
+</body>
+
+</html>

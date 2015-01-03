@@ -1,0 +1,26 @@
+{
+  "name": "formapify",
+  "version": "1.0.0",
+  "description": "Leverage lots of api, form look and feels with formapify, even you can create api, forms with our partners. Even you can create your own form, api.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "form",
+    "api",
+    "ajax",
+    "mvw",
+    "push",
+    "notification",
+    "offline",
+    "online",
+    "mobile",
+    "web",
+    "desktop",
+    "linux",
+    "windows"
+  ],
+  "author": "Shaik Ikbhal Basha",
+  "license": "MIT"
+}

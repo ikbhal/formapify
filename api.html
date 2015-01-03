@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <title>API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    </script>
+    <script type="text/javascript">
+
+    </script>
+</head>
+
+<body ng-app="formapify" ng-controller="APIController">
+
+    <h1>Create API</h1>
+    <button ng-click="listAPI()">ListAPI</button><br>
+    <form nonvalidate>
+        <input type="text" ng-model="api.name" name="name" id="name" placeholder="Name"></input>
+        <br>
+        <textarea ng-model="api.description" name="description" id="description" placeholder="Description"></textarea>
+        <br>
+        
+				<div class="input">
+					<h2>Input Arguments</h2>
+					<button ng-click="listAPIInputArg()">ListAPI Input Args</button>
+					<br>
+					<div class="inputFields">
+						<div class="inputField">
+							<input type='text' ng-model='iarg.name' placeholder="Input arg name"></input>
+							<input type='text' ng-model='iarg.type' placeholder='Input arg type'></input>
+							<button ng-click='createAPIInputArg()'>Add Input arg</button>
+							<button ng-click='resetAPIInputArg()'>Reset</button>
+						</div>
+					</div>
+					<button name="inputArgAdd">Add Input</button>
+				</div>
+				
+				<br>
+
+        <button ng-click="createAPI()">Create API</button>
+        <button ng-click="resetAPIForm()">Reset</button>
+    </form>
+
+    <script>
+    angular.module("formapify", [])
+        .controller("APIController", function($scope) {
+            $scope.helloTo = {};
+            $scope.helloTo.title = "World, AngularJS";
+
+            $scope.apis = [];
+				    $scope.api = {
+				      name: '',
+				      description: ''
+				    };
+
+				    $scope.iargs = [];
+				    $scope.iarg = {name: '', type:''};
+				    
+				    $scope.createAPI = function() {
+			        console.log("Inside createAPI");
+			        
+			        console.log("name: "  + $scope.api.name);
+			        console.log("description: "  + $scope.api.description);
+
+			        $scope.api['iargs'] = $scope.iargs;
+			        
+			        // add to apis
+			        $scope.apis.push($scope.api);
+
+			        $scope.resetAPIForm();
+				    };
+
+				    $scope.resetAPIForm = function() {
+			        console.log("Inside resetAPIForm");
+			        $scope.api = {};
+				    };
+
+				    $scope.listAPI = function(){
+				    	console.log("Inside listAPI");
+				    	var m ;
+				    	for(var i = 0; i< $scope.apis.length;i++){
+				    			m = $scope.apis[i];
+				    			console.log(m.name + "," + m.description);
+				    	}
+				    };
+
+				    $scope.createAPIInputArg = function(){
+				    	console.log("Inside createAPIInputArg");
+				    	console.log("Iarg(name:" + $scope.iarg.name + ";type:" + $scope.iarg.type);
+
+				    	$scope.iargs.push($scope.iarg);
+
+				    	$scope.resetAPIInputArg();
+				    };
+
+				    $scope.resetAPIInputArg = function(){
+				    	console.log("Inside resetAPIInputArg");
+
+				    	$scope.iarg = {name: '', type:''};
+				    };
+
+				    $scope.listAPIInputArg = function(){
+				    	console.log("Inside listAPIIarg");
+				    	var arg ;
+				    	for(var i = 0; i< $scope.iargs.length;i++){
+				    			arg = $scope.iargs[i];
+				    			console.log(arg.name + "," + arg.type);
+				    	}
+				    };
+
+        });
+    </script>
+
+
+</body>
+
+</html>
